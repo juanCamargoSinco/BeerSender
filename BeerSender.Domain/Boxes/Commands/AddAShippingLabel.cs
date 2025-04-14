@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BeerSender.Domain.Boxes.Commands
+﻿namespace BeerSender.Domain.Boxes.Commands
 {
     //Comando
     public record AddShippingLabel(Guid BoxId, ShippingLabel Label);
@@ -24,7 +18,7 @@ namespace BeerSender.Domain.Boxes.Commands
             }
             else
             {
-                boxStream.Append(new ShippingLabelFailedToAdd(ShippingLabelFailedToAdd.FailReason.TrackingCodeInvalid));
+                boxStream.Append(new FailedToAddShippingLabel(FailedToAddShippingLabel.FailReason.TrackingCodeInvalid));
             }
         }
     }
