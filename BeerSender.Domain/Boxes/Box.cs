@@ -7,6 +7,7 @@ namespace BeerSender.Domain.Boxes
     {
         public BoxCapacity? Capacity { get; private set; }
         public ShippingLabel? ShippingLabel { get; private set; }
+        public BeerBox? BeerBox { get; private set; }
 
         public void Apply(BoxCreated @event)
         {
@@ -18,18 +19,18 @@ namespace BeerSender.Domain.Boxes
             ShippingLabel = @event.Label;
         }
 
+        public void Apply(BeerAdded @event)
+        {
+            BeerBox = @event.BeerBox;
+        }
 
     }
 
 
-    //Comandos
-    //Los command no cambian despues de haberlos ejecutado
-    //Ideal manejar commands con events ya que una vez se crean no cambian
-    public record CreateBox(Guid BoxId, int DesiredNumberOfSpots);
-
     //Eventos
     public record BoxCreated(BoxCapacity Capacity);
     public record ShippingLabelAdded(ShippingLabel Label);
+    public record BeerAdded(BeerBox BeerBox);
 
     //evento fallido
     //public record ShippingLabelFailedToAddForInvalidTrackingCode();
@@ -41,9 +42,22 @@ namespace BeerSender.Domain.Boxes
         }
     };
 
+    public record BeerFailedToAdd(FailReason Reason)
+    {
+        public enum FailReason
+        {
+            FullBox
+        }
+    };
+
     public enum Carrier
     {
         UPS, FedEX, BPost
+    }
+
+    public enum Beer
+    {
+        Corona, Poker, Aguila
     }
 
     //Value objects
@@ -75,5 +89,7 @@ namespace BeerSender.Domain.Boxes
             };
         }
     }
+
+    public record BeerBox(Beer Beer, int Quantity);
 
 }
