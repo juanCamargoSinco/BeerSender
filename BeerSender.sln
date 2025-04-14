@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSender.Domain", "BeerSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSender.Domain.Tests", "BeerSender.Domain.Tests\BeerSender.Domain.Tests.csproj", "{F234F2EB-EB31-4610-B2E5-53E0DF9C6FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSender.Web", "BeerSender.Web\BeerSender.Web.csproj", "{94F66665-7527-4390-9E09-D4535920DEFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSender.EventStore", "BeerSender.EventStore\BeerSender.EventStore.csproj", "{33490CA4-3F92-4FE3-9534-06A4CC442D27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{F234F2EB-EB31-4610-B2E5-53E0DF9C6FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F234F2EB-EB31-4610-B2E5-53E0DF9C6FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F234F2EB-EB31-4610-B2E5-53E0DF9C6FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F66665-7527-4390-9E09-D4535920DEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F66665-7527-4390-9E09-D4535920DEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F66665-7527-4390-9E09-D4535920DEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F66665-7527-4390-9E09-D4535920DEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33490CA4-3F92-4FE3-9534-06A4CC442D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33490CA4-3F92-4FE3-9534-06A4CC442D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33490CA4-3F92-4FE3-9534-06A4CC442D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33490CA4-3F92-4FE3-9534-06A4CC442D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
