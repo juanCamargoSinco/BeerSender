@@ -1,0 +1,75 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Others
+*.swp
+*.bak
+*.tmp
+*.temp
+*.pid
+*.seed
+*.log
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Coverage
+*.coverage
+*.coveragexml
+*.codecov
+
+# Publish
+*.publishsettings
+.publish/
+
+# Azure Functions
+local.settings.json
+
+# Entity Framework
+*.edmx.diagram
+*.edmx.sql
+
+# macOS system files
+.Trashes
+.DS_Store
+._*
+.Spotlight-V100
+.fseventsd
+
+/.vs
