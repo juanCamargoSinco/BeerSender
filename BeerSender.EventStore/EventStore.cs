@@ -4,8 +4,8 @@ using Dapper;
 namespace BeerSender.EventStore;
 
 public class EventStore(EventStoreConnectionFactory DbConnectionFactory
-    //, INotificationService? notificationService = null
-    ) 
+    , INotificationService notificationService
+    )
     : IEventStore
 {
     public IEnumerable<StoredEvent> GetEvents(Guid aggregateId)
@@ -24,6 +24,25 @@ public class EventStore(EventStoreConnectionFactory DbConnectionFactory
                 query,
                 new { AggregateId = aggregateId }) //Parametro que se pasa a la consulta que se esta ejecutando en el query.
                                                    //En este caso pasamos @AggregateId lo que hay en aggregateId
+            .Select(e => e.ToStoredEvent());
+    }
+
+    public IEnumerable<StoredEvent> GetEventsUntilSequence(Guid aggregateId, int sequence)
+    {
+        const string query = """
+                             SELECT [AggregateId], [SequenceNumber], [Timestamp]
+                                   ,[EventTypeName], [EventBody], [RowVersion]
+                             FROM dbo.[Events]
+                             WHERE [AggregateId] = @AggregateId
+                                   AND [SequenceNumber] <= @Sequence
+                             ORDER BY [SequenceNumber]
+                             """;
+
+        using var connection = DbConnectionFactory.Create();
+
+        return connection.Query<DatabaseEvent>(
+                query,
+                new { AggregateId = aggregateId, Sequence = sequence })
             .Select(e => e.ToStoredEvent());
     }
 
@@ -58,15 +77,12 @@ public class EventStore(EventStoreConnectionFactory DbConnectionFactory
 
         transaction.Commit();
 
-        //if (notificationService != null)
-        //{
-        //    foreach (var storedEvent in _newEvents)
-        //    {
-        //        notificationService.PublishEvent(
-        //            storedEvent.AggregateId,
-        //            storedEvent.EventData);
-        //    }
-        //}
+        foreach (var storedEvent in _newEvents)
+        {
+            notificationService.PublishEvent(
+                storedEvent.AggregateId,
+                storedEvent.EventData);
+        }
 
         _newEvents.Clear();
     }

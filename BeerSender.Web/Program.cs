@@ -1,15 +1,18 @@
 using BeerSender.Domain;
 using BeerSender.EventStore;
+using BeerSender.Web.EventPublishing;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.RegisterDomain();
 builder.Services.RegisterEventStore();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
@@ -27,15 +30,13 @@ else
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapStaticAssets();
 app.MapRazorPages()
     .WithStaticAssets();
+app.MapHub<EventHub>("event-hub");
 
 app.Run();

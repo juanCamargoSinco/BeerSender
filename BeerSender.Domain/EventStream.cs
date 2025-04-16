@@ -37,18 +37,14 @@ public class EventStream<TEntity>(IEventStore eventStore, Guid aggregateId)
 
     }
 
-    public TEntity GetEntityBySequence(int sequence)
+    public TEntity GetEntityBySequence(int sequenceNumber)
     {
-        var events = eventStore.GetEvents(aggregateId);
-        TEntity entity = new();
+        var events = eventStore.GetEventsUntilSequence(aggregateId, sequenceNumber);
 
+        TEntity entity = new();
         foreach (var @event in events)
         {
             entity.Apply((dynamic)@event.EventData);
-            _lastSequenceNumber = @event.SequenceNumber;
-
-            if (@event.SequenceNumber == sequence)
-                  break;
         }
 
         return entity;

@@ -39,4 +39,9 @@ public class TestStore : IEventStore
     {
         throw new NotImplementedException();
     }
+
+    public IEnumerable<StoredEvent> GetEventsUntilSequence(Guid aggregateId, int sequenceNumber)
+    {
+        throw new NotImplementedException();
+    }
 }
