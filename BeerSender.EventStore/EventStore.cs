@@ -22,7 +22,8 @@ public class EventStore(EventStoreConnectionFactory DbConnectionFactory
 
         return connection.Query<DatabaseEvent>(
                 query,
-                new { AggregateId = aggregateId })
+                new { AggregateId = aggregateId }) //Parametro que se pasa a la consulta que se esta ejecutando en el query.
+                                                   //En este caso pasamos @AggregateId lo que hay en aggregateId
             .Select(e => e.ToStoredEvent());
     }
 

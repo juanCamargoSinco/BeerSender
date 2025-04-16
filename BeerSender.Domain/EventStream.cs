@@ -1,3 +1,5 @@
+using BeerSender.Domain.Boxes;
+
 namespace BeerSender.Domain;
 
 public class EventStream<TEntity>(IEventStore eventStore, Guid aggregateId)
@@ -35,4 +37,20 @@ public class EventStream<TEntity>(IEventStore eventStore, Guid aggregateId)
 
     }
 
+    public TEntity GetEntityBySequence(int sequence)
+    {
+        var events = eventStore.GetEvents(aggregateId);
+        TEntity entity = new();
+
+        foreach (var @event in events)
+        {
+            entity.Apply((dynamic)@event.EventData);
+            _lastSequenceNumber = @event.SequenceNumber;
+
+            if (@event.SequenceNumber == sequence)
+                  break;
+        }
+
+        return entity;
+    }
 }
